@@ -1,0 +1,7 @@
+/**
+ * 
+ */
+ 
+function funcgo(){
+	history.back();
+};

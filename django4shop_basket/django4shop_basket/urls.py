@@ -1,4 +1,4 @@
-"""django1 URL Configuration
+"""django4shop_basket URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.0/topics/http/urls/
@@ -15,10 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from myapp import views
+from shopapp import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls), 
+    
     path('', views.mainFunc),
-    path('hello', views.helloFunc),
+    path('page1', views.page1Func),
+    path('page2', views.page2Func),
+    path('cart', views.cartFunc),
+    path('buy', views.buyFunc),
+    
 ]

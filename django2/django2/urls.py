@@ -1,4 +1,4 @@
-"""django1 URL Configuration
+"""django2 URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.0/topics/http/urls/
@@ -15,10 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from myapp import views
+from gpapp import views
+from gpapp.views import myCallView
+from django.urls.conf import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.mainFunc),
-    path('hello', views.helloFunc),
+    
+    # Function views
+    path('', views.mainFunc, name='mainFunc'),
+    
+    # Class-based views
+    path('gpapp/callget', myCallView.as_view()),
+    
+    # Including another URLconf
+    path('insakwanli/', include('gpapp.urls'))
 ]

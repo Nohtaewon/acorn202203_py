@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+자료 입력<p/>
+<!-- 
+<form action="/insakwanli/insertok" method="post">{% csrf_token %}
+-->
+<form action="/insakwanli/insert" method="post">{% csrf_token %}
+부서명:<input type="text" name="buser"><br>
+직원명:<input type="text" name="irum"><br>
+<input type="submit" value="등록 확인">
+</form>
+</body>
+</html>
