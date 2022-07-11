@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+window.onload=function(){
+	document.querySelector("#btnOk").onclick=function(){
+		frm.submit();
+	}
+}
+</script>
+</head>
+<body>
+	<tr>
+		<td><img src='/static/images/sangpum2.jpg' style="width:30%" /></td>
+		<td>
+		<pre>
+		상품명 : 호텔가지마~도톰수건 5+5
+		가격 : 26,900
+		특징 : 도톰하고 뽀송함
+		</pre>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<form action="cart" name="frm" method="post">{% csrf_token %}
+				<input type="hidden" name="name" value="도톰수건">
+				<input type="hidden" name="price" value="26900">
+				<input type="button" id="btnOk" value="장바구니에 담기" >
+				<input type="button" value="홈 페이지로" onclick="history.back()">
+				
+			</form>
+		</td>
+	</tr>
+</body>
+</html>
