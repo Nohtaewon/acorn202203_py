@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+</head>
+<body>
+직원정보
+{% if data %}
+{{data|safe}}
+{% endif %}
+
+부서명에 대한 연봉합과 연봉 평균
+{% if pay_sm1 %}
+{{pay_sm1|safe}}
+{% endif %}
+
+직급에 대한 연봉합과 연봉 평균
+{% if pay_sm2 %}
+{{pay_sm2|safe}}
+{% endif %}
+
+성별, 직급별 빈도표
+{% if ctab %}
+{{ctab|safe}} 
+{% endif %}
+부서명별 연봉합 평균 세로막대 그래프
+<img src="/static/images/jik.png" style="width:50%"/>
+
+<br>
+
+<canvas id="my_canvas" width="80" height="20"></canvas>
+
+<script type="text/javascript">
+let pays = [];
+let names = [];
+ypays = {{ypays}}
+console.log(pays);
+names = {{names}}
+console.log(names); 
+
+var canvas = document.getElementById('my_canvas');
+var ctx = canvas.getContext('2d');
+var myChart = new Chart(ctx, {
+   type: 'bar',
+   data: {
+      labels: names,
+      datasets: [{
+         label: '연봉',
+         data: ypays,
+      }]
+   }
+});
+</script>
+</body>
+</html>
