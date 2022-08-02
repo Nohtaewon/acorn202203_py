@@ -3,6 +3,7 @@
 import pandas as pd
 import statsmodels.formula.api as smf
 import seaborn as sns
+import matplotlib.pyplot as plt
 
 iris = sns.load_dataset('iris')
 print(iris.head(3), type(iris), iris.shape)
@@ -18,6 +19,10 @@ print('요약결과1 : ', result1.summary())
 print('R-squared:', result1.rsquared)
 print('p-value:', result1.pvalues[1])
 
+plt.scatter(iris.sepal_width, iris.sepal_length)
+plt.plot(iris.sepal_width, result1.predict(), color='r')
+plt.show()
+
 print()
 print('연습2 : 상관관계가 강한 변수를 사용해 선형회귀모델 작성')
 # petal_length, sepal_length : 0.871754
@@ -29,6 +34,10 @@ print('p-value:', result2.pvalues[1])   # 1.0386674194497386e-47
 
 print('실제값 : ', iris.sepal_length[:5].values)
 print('예측값 : ', result2.predict()[:5])
+
+plt.scatter(iris.petal_length, iris.sepal_length)
+plt.plot(iris.petal_length, result2.predict(), color='r')
+plt.show()
 
 # 새로운 값(petal_length)으로 예측(sepal_length)
 print('수식 사용 : ', 0.4089 * 1.1 + 4.3066)     # wx+b
