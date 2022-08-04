@@ -17,7 +17,7 @@ pandas 문제 3)  타이타닉 승객 데이터를 사용하여 아래의 물음
 import pandas as pd
 import numpy as np
 
-df = pd.read_csv("testdata/titanic_data.csv")
+df = pd.read_csv("../testdata/titanic_data.csv")
 print(df.head(), '\n')
 bins = [1, 20, 35, 60, 150]
 labels = ["소년", "청년", "장년", "노년"]
