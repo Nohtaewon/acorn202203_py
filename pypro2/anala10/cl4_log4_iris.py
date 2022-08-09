@@ -1,4 +1,4 @@
-# LogisticRegression : 다항분류 가능 - iris dataset : 활성화 함수는 softmax 사용
+# 다항분류 가능 - iris dataset : 활성화 함수는 softmax 사용
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt

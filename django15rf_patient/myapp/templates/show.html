@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+입원 환자 데이터를 입력해 생사 여부 확인을 위한 자료 입력
+<pre>
+  AGE : 나이
+  SEX : 성별
+  RACE : 인종
+  SER : 중환자 치료실에서 받은 치료
+  CAN : 암 존재 여부
+  INF : 중환자 치료실에서의 감염 여부
+  CPR : 중환자 치료실 도착 전 CPR여부
+  HRA : 중환자 치료실에서의 심박수
+예) AGE SEX RACE SER CAN CRN INF CPR HRA
+    27   1   1    0   0   0   1   0  88
+</pre>
+<br>
+<form action="/predict" method="post">{% csrf_token %}
+<table border="1">
+  <tr>
+  	<th>AGE</th><th>SEX</th><th>RACE</th><th>SER</th><th>CAN</th>
+  </tr>
+  <tr>
+    <td><input type="text" name="AGE" value="27" size="2"></td>
+    <td><input type="text" name="SEX" value="1" size="2"></td>
+    <td><input type="text" name="RACE" value="1" size="2"></td>
+    <td><input type="text" name="SER" value="0" size="2"></td>
+    <td><input type="text" name="CAN" value="0" size="2"></td>
+  </tr>  
+  <tr>
+    <th>CRN</th><th>INF</th><th>CPR</th><th>HRA</th>
+  </tr>
+  <tr>
+    <td><input type="text" name="CRN" value="0" size="2"></td>
+    <td><input type="text" name="INF" value="1" size="2"></td>
+    <td><input type="text" name="CPR" value="0" size="2"></td>
+    <td><input type="text" name="HRA" value="88" size="2"></td>
+  </tr>
+  <tr>
+  	<td colspan="6" style="text-align: center">
+  		<input type="submit" value="확인">
+  	</td>
+  </tr>
+</table>
+</form>
+</body>
+</html>
