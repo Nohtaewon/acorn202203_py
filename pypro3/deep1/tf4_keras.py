@@ -23,11 +23,17 @@ print(y)    # label
 # ])
 
 model = Sequential()
-model.add(Dense(units=1, input_dim=2))
-model.add(Activation('sigmoid'))
+# model.add(Dense(units=1, input_dim=2))
+# model.add(Activation('sigmoid'))
+model.add(Dense(units=1, input_dim=2, activation='sigmoid'))
+
 # 3. 모델 학습 과정 설정 (compile)
 #   학습하기 전, 학습에 대한 설정을 수행한다. 손실 함수 및 최적화 방법을 정의. compile() 함수를 사용한다.
-model.compile(optimizer='sgd', loss='binary_crossentropy', metrics=['accuracy'])
+# model.compile(optimizer='sgd', loss='binary_crossentropy', metrics=['accuracy'])
+# model.compile(optimizer='rmsprop', loss='binary_crossentropy', metrics=['accuracy'])
+# model.compile(optimizer=tf.keras.optimizers.SGD(learning_rate=0.1), loss='binary_crossentropy', metrics=['accuracy'])
+# model.compile(optimizer=tf.keras.optimizers.SGD(learning_rate=0.1, momentum=0.9), loss='binary_crossentropy', metrics=['accuracy'])
+model.compile(optimizer=tf.keras.optimizers.RMSprop(learning_rate=0.1), loss='binary_crossentropy', metrics=['accuracy'])
 print(model.summary())
 
 # 4. 모델 학습시키기
