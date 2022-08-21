@@ -30,6 +30,7 @@ print('예측값:', model.predict(x_data).flatten())
 new_data = [1.5, 2.3, 5.8]
 print('새 점수 예측 결과:', model.predict(new_data).flatten())
 
+"""
 # 시각화
 import matplotlib.pyplot as plt
 plt.rc('font', family='malgun gothic')
@@ -43,7 +44,7 @@ plt.plot(history.history['mse'], label='평균제곱오차')
 plt.xlabel('학습횟수')
 plt.ylabel('mse')
 plt.show()
-
+"""
 print('2) function API 사용 : 유연한 구조. 입력 데이터로부터 여러 층을 공유하거나 다양한 입출력 사용 가능 --- ')
 from keras.layers import Input
 from keras.models import Model
@@ -64,28 +65,81 @@ history2 = model2.fit(x=x_data, y=y_data, batch_size=1, epochs=100, verbose=0)
 
 loss_metris2 = model2.evaluate(x=x_data, y=y_data, batch_size=1, verbose=0)
 print('loss_metris:', loss_metris2)
-from sklearn.metrics import r2_score
+
 print('설명력:', r2_score(y_data, model2.predict(x_data)))
 print('실제값:', y_data)
 print('예측값:', model2.predict(x_data).flatten())
 
+print('3) sub classing 사용 : 동적인 구조 처리가 자유롭다. 고난이도의 작업에서 활용성이 높다.')
+x_data = np.array([[1],[2],[3],[4],[5]], dtype=np.float32)    # feature
+y_data = np.array([11,32,53,64,70], dtype=np.float32)    # label
 
+class MyModel(Model):
+    def __init__(self): # layer 생성 후 call 메소드에서 수행하려는 연산을 적음
+        super(MyModel, self).__init__()
+        self.d1 =Dense(2, activation='linear')
+        self.d2 =Dense(1, activation='linear')
+        
+    def call(self, x):
+        inputs = self.d1(x)
+        return self.d2(inputs)
+        
+model3 = MyModel()
 
+# 이하는 방법1과 같음
 
+opti = optimizers.Adam(learning_rate = 0.01)
+model3.compile(optimizer=opti, loss='mse', metrics=['mse'])   # mse : 평균제곱오차. 추측값에 대한 정확성을 측정하는 방법
+history3 = model3.fit(x=x_data, y=y_data, batch_size=1, epochs=100, verbose=0)
 
+loss_metris3 = model3.evaluate(x=x_data, y=y_data, batch_size=1, verbose=0)
+print('loss_metris:', loss_metris3)
 
+print('설명력:', r2_score(y_data, model3.predict(x_data)))
+print('실제값:', y_data)
+print('예측값:', model3.predict(x_data).flatten())
+print(model3.summary())
 
+print('3) sub classing 사용2 : custom Layer + subclassing')
+from keras.layers import Layer  # custom Layer 여러 레이어를 하나로 묶은 레이어를 구현할 경우
 
+class Linear(Layer):
+    def __init__(self, units=1):
+        super(Linear, self).__init__()
+        self.units = units
+        print('1')
+    
+    def build(self, input_shape):    # 모델의 가중치와 관련된 내용을 기술
+        self.w = self.add_weight(shape=(input_shape[-1], self.units), initializer='random_normal', trainable=True)  # 역전파 진행
+        
+        self.b = self.add_weight(shape=(self.units), initializer='zeros', trainable=True)
 
+    def call(self, inputs):
+        return tf.matmul(inputs, self.w) + self.b   # y = xw + b
+    
+class MyMLP(Model):
+    def __init__(self):
+        super(MyMLP, self).__init__()
+        self.linear1 = Linear(2)
+        self.linear2 = Linear(1)
 
+    def call(self, inputs):
+        x = self.linear1(inputs)
+        return self.linear2(x)
+    
+model4 = MyMLP()
 
+# 이하는 방법1과 같음
 
+opti = optimizers.Adam(learning_rate = 0.01)
+model4.compile(optimizer=opti, loss='mse', metrics=['mse'])   # mse : 평균제곱오차. 추측값에 대한 정확성을 측정하는 방법
+history4 = model4.fit(x=x_data, y=y_data, batch_size=1, epochs=100, verbose=0)
 
+loss_metris4 = model4.evaluate(x=x_data, y=y_data, batch_size=1, verbose=0)
+print('loss_metris:', loss_metris4)
 
-
-
-
-
-
-
+print('설명력:', r2_score(y_data, model4.predict(x_data)))
+print('실제값:', y_data)
+print('예측값:', model4.predict(x_data).flatten())
+print(model4.summary())
 
