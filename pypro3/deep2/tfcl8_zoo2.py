@@ -14,7 +14,6 @@ print(x_data[:3])
 print(y_data[:3])
 print(set(y_data))
 
-
 # model
 model=Sequential()
 model.add(Dense(32, input_shape=(16,), activation='relu'))
@@ -25,9 +24,9 @@ model.add(Dense(7, activation='softmax'))
 model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['acc'])
 print(model.summary())
 
-history = model.fit(x_data, y_one_hot, epochs=100, batch_size=10, validation_split=0.3, verbose=0)
+history = model.fit(x_data, y_data, epochs=100, batch_size=10, validation_split=0.3, verbose=0)
 
-print('eval:', model.evaluate(x_data, y_one_hot))
+print('eval:', model.evaluate(x_data, y_data))
 
 # 시각화
 history_dict = history.history
