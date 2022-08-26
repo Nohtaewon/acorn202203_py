@@ -29,7 +29,8 @@ x_test = x_test / 255.0
 # print(x_train[[[[0]]]])
 # print(y_train[[0]])
 
-# model
+"""
+# model    Sequential API 적용 
 input_shape = (28, 28, 1)
 model = models.Sequential()
 # CNN 구축
@@ -87,12 +88,43 @@ print('test_loss, test_acc : ', test_loss, test_acc)
 model.save('tf14.h5')
 
 del model
-
+"""
 model2 = tf.keras.models.load_model('tf14.h5')
 
-# 완전 연결층 구축
+# predict
+import numpy as np
+print('예측값:', np.argmax(model2.predict(x_test[:1])))
+print('예측값:', np.argmax(model2.predict(x_test[[0]])))
+print('실제값:', y_test[0])
 
+# 시각화 
+import matplotlib.pyplot as plt
+import pickle
+with open('his_data.pickle', mode='rb') as obj:
+    history = pickle.load(obj)
+    
+def plot_acc(title = None):
+    plt.plot(history['accuracy'], label='accuracy')
+    plt.plot(history['val_accuracy'], label='val_accuracy')
+    plt.title(title)
+    plt.xlabel('epochs')
+    plt.legend()
 
+plot_acc('acc')
+plt.show()
+
+def plot_loss(title = None):
+    plt.plot(history['loss'], label='loss')
+    plt.plot(history['val_loss'], label='val_loss')
+    plt.title(title)
+    plt.xlabel('epochs')
+    plt.legend()
+
+plot_loss('loss')
+plt.show()
+
+from keras.utils import plot_model
+plot_model(model2, to_file='tf14cnn.png', show_shapes=True)
 
 
 
