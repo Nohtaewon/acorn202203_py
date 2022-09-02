@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<script type="text/javascript">
+window.onload = function(){
+	document.getElementById("btnOk").onclick = chkFunc; 
+}
+
+function chkFunc(){
+	// alert('a');
+	if(frm.name.value === ""){
+		alert("작성자를 입력하시오");
+		frm.name.focus();
+		return;
+	}
+
+	// 생략	
+	frm.submit();
+
+}
+</script>
+</head>
+<body style="margin: 20px">
+<h2>** 새 글 입력 **</h2>
+<form action="/board/insertok" method="post" name="frm">{% csrf_token %}
+<table class="table" style="width: 95%">
+ <tr>
+	<td>작성자</td>
+	<td><input type="text" name="name"></td>	
+ </tr>
+  <tr>
+	<td>비밀번호</td>
+	<td><input type="text" name="passwd"></td>	
+ </tr>
+  <tr>
+	<td>이메일</td>
+	<td><input type="text" name="mail"></td>	
+ </tr>
+  <tr>
+	<td>글제목</td>
+	<td><input type="text" name="title" style="width: 99%"></td>	
+ </tr>
+  <tr>
+	<td>글내용</td>
+	<td>
+		<textarea rows="5" style="width: 99%" name="cont"></textarea>
+	</td>	
+ </tr>
+  <tr>
+	<td colspan="2" style="text-align: center;">
+		<input type="button" value="등록" id="btnOk" class="btn-primary">
+	</td>
+ </tr>
+</table>
+</form>
+</body>
+</html>
